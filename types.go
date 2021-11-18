@@ -9,6 +9,7 @@ const (
 	Other      Kind = iota // Unknown error or something that doesn't fit other categories
 	Internal               // Internal error that should not be shown to user
 	Invalid                // Operation is not permitted for this type of item
+	Incorrect              // Incorrect configuration or values
 	Permission             // Permission denied
 	IO                     // External IO error
 	Conflict               // The item already exists
@@ -24,6 +25,8 @@ func (k Kind) String() string {
 		return "internal error"
 	case Invalid:
 		return "invalid operation"
+	case Incorrect:
+		return "incorrect configuration"
 	case Permission:
 		return "permission denied"
 	case IO:
