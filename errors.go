@@ -3,6 +3,7 @@ package errors
 import (
 	"bytes"
 	"fmt"
+	"log"
 )
 
 var (
@@ -47,6 +48,7 @@ func E(args ...interface{}) error {
 		case error:
 			e.Err = arg
 		default:
+			log.Println(args)
 			return Errorf("unknown type %T with value %v in error call", arg, arg)
 		}
 	}
