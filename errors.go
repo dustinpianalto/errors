@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+var (
+	_ error = (*Error)(nil)
+)
+
 type Error struct {
 	// The kind of error
 	Kind Kind `json:"kind"`
