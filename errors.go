@@ -120,3 +120,36 @@ func Is(k Kind, err error) bool {
 	}
 	return false
 }
+
+// Alows for testing if error matches the given error
+func Match(err1, err2 error) bool {
+	e1, ok := err1.(*Error)
+	if !ok {
+		return false
+	}
+	e2, ok := err2.(*Error)
+	if !ok {
+		return false
+	}
+	if e1.Kind != Other && e1.Kind != e2.Kind {
+		return false
+	}
+	if e1.Method != "" && e1.Method != e2.Method {
+		return false
+	}
+	if e1.Username != "" && e1.Username != e2.Username {
+		return false
+	}
+	if e1.Message != "" && e1.Message != e2.Message {
+		return false
+	}
+	if e1.Err != nil {
+		if _, ok = e1.Err.(*Error); ok {
+			return Match(e1.Err, e2.Err)
+		}
+		if e2.Err == nil || e1.Err.Error() != e2.Err.Error() {
+			return false
+		}
+	}
+	return true
+}
